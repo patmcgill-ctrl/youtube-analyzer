@@ -1,0 +1,16 @@
+# Cache and downloaded data — never commit
+.yt_cache/
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+
+# Environment
+.env
+*.env
+
+# Editor
+.vscode/
+.idea/
