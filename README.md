@@ -1,19 +1,22 @@
-# YouTube Political Ad Spend Analyzer
+# Political Ad Intelligence · 2026
 
-A Streamlit dashboard for tracking and analyzing political advertising spend on YouTube, powered by the [Google Political Ads Transparency Report](https://transparencyreport.google.com/political-ads/home).
+A unified Streamlit dashboard for tracking political advertising spend across **YouTube**, **Meta (Facebook/Instagram)**, and **Snapchat** — with cross-platform candidate Match Up.
+
+## Platforms
+
+- **▶ YouTube** — Google Political Ads Transparency bundle (auto-downloaded, cached)
+- **f Meta** — Facebook/Instagram Ad Library (programmatic API fetch or manual ZIP upload)
+- **👻 Snap** — Snapchat Political Ads (Google Cloud Storage, cached)
+- **⚡ Match Up** — Cross-platform candidate comparison with entity resolution
 
 ## Features
 
-- **Top Spenders** — ranked leaderboard of top 100 political advertisers with party inference
-- **Daily Spend** — daily spend trend chart (max/min range)
+- **Top Spenders** — ranked leaderboard with party inference (Republican / Democrat / Other)
+- **Daily/Weekly Spend** — trend charts with max/min range
 - **By State** — geographic breakdown with per-state advertiser drill-down
-- **Advertiser Insights** — per-advertiser spend trend, geographic strategy, targeting data
-- **Platform Comparison** — YouTube vs CTV spend (upload AdImpact/iSpot export for real CTV data)
-- **Spend Trends** — week-over-week momentum analysis, rising/falling advertisers
-
-## Party Inference
-
-4-tier system: Manual override → Curated dict (~150 entries) → Wikidata politician lookup → Declared scope text → Keywords → Unknown
+- **Advertiser Insights** — per-advertiser spend trend, targeting data, creative previews
+- **Cross-Platform Match Up** — unify advertiser names via alias system + fuzzy matching
+- **XSS Protection** — all external advertiser names HTML-escaped before rendering
 
 ## Running Locally
 
@@ -22,11 +25,18 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-The app auto-downloads the Google Political Ads transparency bundle (~277 MB) on first run and caches it in `.yt_cache/`.
+The app auto-downloads the Google Political Ads transparency bundle (~277 MB) on first run and caches it locally.
+
+## Environment Variables
+
+| Variable | Purpose |
+|---|---|
+| `META_TOKEN` | Meta Ad Library API token (optional — enables programmatic Meta fetch) |
+
+Set via a `.env` file or Streamlit Cloud Secrets.
 
 ## Data Sources
 
-- `advertiser-weekly-spend.csv` — exact 2026 YTD spend per advertiser
-- `advertiser-geo-spend.csv` — spend by state (all-time, filtered to 2026-active advertisers)
-- `advertiser-declared-stats.csv` — declared scope text for party inference
-- `creative-stats.csv` — individual ad creatives with targeting data (daily chart only)
+- **YouTube**: Google Political Ads Transparency Report (auto-downloaded)
+- **Meta**: Facebook Ad Library Report ZIP or Graph API (`ads_archive`)
+- **Snapchat**: GCS political ads dump (`ad-manager-political-ads-dump`)
