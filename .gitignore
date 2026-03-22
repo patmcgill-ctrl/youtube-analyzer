@@ -1,5 +1,6 @@
 # Cache and downloaded data — never commit
 .yt_cache/
+snapwatch/
 __pycache__/
 *.pyc
 *.pyo
